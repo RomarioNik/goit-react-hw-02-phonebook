@@ -1,60 +1,32 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  List,
-  ListItem,
-  AvatarWrapper,
-  TrashButton,
-  Avatar,
-  Contact,
-  Name,
-  Phone,
-  Icon,
-} from './ContactList.styled';
-import defaultAvatar from '../../images/avatar-def.svg';
-import trash from '../../images/trash.svg';
+import ContactItem from 'components/ContactItem';
+import { List } from './ContactList.styled';
 
-class ContactList extends Component {
-  static propTypes = {
-    onDeleteContact: PropTypes.func.isRequired,
-    contacts: PropTypes.arrayOf(
-      PropTypes.exact({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        number: PropTypes.string.isRequired,
-      }).isRequired
-    ),
-  };
+const ContactList = ({ contacts, onDeleteContact }) => {
+  return (
+    <List>
+      {contacts.map(({ id, name, number }) => (
+        <ContactItem
+          key={id}
+          id={id}
+          name={name}
+          number={number}
+          onDeleteContact={onDeleteContact}
+        />
+      ))}
+    </List>
+  );
+};
 
-  handleClickButton = id => {
-    const { onDeleteContact } = this.props;
-    onDeleteContact(id);
-  };
-
-  render() {
-    const { contacts } = this.props;
-
-    return (
-      <List>
-        {contacts.map(({ id, name, number }) => (
-          <ListItem key={id}>
-            <AvatarWrapper>
-              <Avatar src={defaultAvatar} width="40" height="40" />
-            </AvatarWrapper>
-
-            <Contact>
-              <Name>{name}</Name>
-              <Phone>{number}</Phone>
-            </Contact>
-
-            <TrashButton onClick={() => this.handleClickButton(id)}>
-              <Icon src={trash} />
-            </TrashButton>
-          </ListItem>
-        ))}
-      </List>
-    );
-  }
-}
+ContactList.propTypes = {
+  onDeleteContact: PropTypes.func.isRequired,
+  contacts: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    }).isRequired
+  ),
+};
 
 export default ContactList;

@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   InputFilter,
@@ -7,31 +6,27 @@ import {
   Cross,
 } from './Filter.styled';
 
-class Filter extends Component {
-  static propTypes = {
-    value: PropTypes.string.isRequired,
-    onFilterChange: PropTypes.func.isRequired,
-    onFilterReset: PropTypes.func.isRequired,
-  };
+const Filter = ({ value, onFilterChange, onFilterReset }) => {
+  return (
+    <FilterWrapper>
+      <InputFilter
+        type="text"
+        name="filter"
+        value={value}
+        onChange={onFilterChange}
+        placeholder="Search contact's name"
+      />
+      <ButtonFilter type="button" onClick={onFilterReset}>
+        <Cross></Cross>
+      </ButtonFilter>
+    </FilterWrapper>
+  );
+};
 
-  render() {
-    const { value, onFilterChange, onFilterReset } = this.props;
-
-    return (
-      <FilterWrapper>
-        <InputFilter
-          type="text"
-          name="filter"
-          value={value}
-          onChange={onFilterChange}
-          placeholder="Search contact's name"
-        />
-        <ButtonFilter type="button" onClick={onFilterReset}>
-          <Cross></Cross>
-        </ButtonFilter>
-      </FilterWrapper>
-    );
-  }
-}
+Filter.propTypes = {
+  value: PropTypes.string.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
+  onFilterReset: PropTypes.func.isRequired,
+};
 
 export default Filter;
