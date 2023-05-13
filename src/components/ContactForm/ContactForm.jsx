@@ -23,7 +23,10 @@ class ContactForm extends Component {
     const { onAddContact } = this.props;
     const { state } = this;
 
-    onAddContact(state);
+    onAddContact(state, this.resetForm);
+  };
+
+  resetForm = () => {
     this.setState({
       name: '',
       number: '',

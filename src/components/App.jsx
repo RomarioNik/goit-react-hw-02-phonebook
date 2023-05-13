@@ -22,7 +22,7 @@ class App extends Component {
     filter: '',
   };
 
-  addContact = ({ name, number }) => {
+  addContact = ({ name, number }, resetForm) => {
     if (this.checkDuplicateName(name)) {
       alert(`${name} is already in contacts`);
       return;
@@ -37,6 +37,8 @@ class App extends Component {
     this.setState(({ contacts }) => ({
       contacts: [...contacts, newContact],
     }));
+
+    resetForm();
   };
 
   checkDuplicateName = nameContact => {
